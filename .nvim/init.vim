@@ -1,3 +1,6 @@
+" let some plugins know where python is (dependent plugins: vim-autoformat)
+let g:python3_host_prog='/usr/bin/python3'
+
 " get VimPlug from https://github.com/junegunn/vim-plug/wiki/tutorial
 call plug#begin('~/.vim/plugge')
 
@@ -46,6 +49,9 @@ Plug 'ncm2/ncm2-racer'
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+
+Plug 'Chiel92/vim-autoformat'
+autocmd BufWrite * :Autoformat
 call plug#end()
 
 " various hotkeys
