@@ -1,1 +1,1 @@
-set -x PATH $PATH ~/.cargo/bin/
+set -x PATH $PATH ~/.cargo/bin/ /snap/bin/
