@@ -8,9 +8,9 @@ call plug#begin('~/.vim/plugge')
 Plug 'tpope/vim-sensible'
 " language client - detects errors while typing, integrates with automcomplete
 Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+			\ 'branch': 'next',
+			\ 'do': 'bash install.sh',
+			\ }
 " (Optional) Multi-entry selection UI.
 Plug 'junegunn/fzf'
 
@@ -18,12 +18,12 @@ Plug 'junegunn/fzf'
 set hidden
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'python': ['/usr/local/bin/pyls'],
-    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
-    \ }
+			\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+			\ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+			\ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+			\ 'python': ['/usr/local/bin/pyls'],
+			\ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+			\ }
 
 " autocompletion with ncm2
 " assuming you're using vim-plug: https://github.com/junegunn/vim-plug
@@ -42,13 +42,15 @@ set completeopt=noinsert,menuone,noselect
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 
+" TODO: This stuff does not seem to make a difference. Gotta work on that in
+" the feature..
+"
 " language support for rust
-Plug 'ncm2/ncm2-racer'
-
+" Plug 'ncm2/ncm2-racer'
 " snippets!
-Plug 'ncm2/ncm2-ultisnips'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+" Plug 'ncm2/ncm2-ultisnips'
+" Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
 
 Plug 'Chiel92/vim-autoformat'
 autocmd BufWrite * :Autoformat
