@@ -40,6 +40,11 @@ Plug 'ncm2/ncm2-path'
 
 " language support for rust
 Plug 'ncm2/ncm2-racer'
+
+" snippets!
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 call plug#end()
 
 " various hotkeys
