@@ -1,7 +1,7 @@
 " let some plugins know where python is (dependent plugins: vim-autoformat)
 let g:python3_host_prog='/usr/bin/python3'
 
-" get VimPlug from https://github.com/junegunn/vim-plug/wiki/tutorial
+" get VimPlug from https://github.com/junegunn/vim-plug
 call plug#begin('~/.vim/plugge')
 
 " sensible defaults
@@ -43,7 +43,7 @@ Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 
 " TODO: This stuff does not seem to make a difference. Gotta work on that in
-" the feature..
+" the future..
 "
 " language support for rust
 " Plug 'ncm2/ncm2-racer'
@@ -54,6 +54,9 @@ Plug 'ncm2/ncm2-path'
 
 Plug 'Chiel92/vim-autoformat'
 autocmd BufWrite * :Autoformat
+
+" fuzzy finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 call plug#end()
 
 " various hotkeys
