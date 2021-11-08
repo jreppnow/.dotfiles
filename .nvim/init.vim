@@ -49,6 +49,10 @@ Plug 'airblade/vim-rooter'
 " Shows vertical lines at blocks..
 Plug 'Yggdroot/indentLine'
 
+" Former is needed for the later..
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
 call plug#end()
 
 " added with rust langauge plugin, might be unnecessary
