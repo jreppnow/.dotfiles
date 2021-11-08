@@ -13,6 +13,10 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'kana/vim-operator-user'
 
+" gruvbox color scheme
+Plug 'sheerun/vim-polyglot'
+Plug 'sainnhe/gruvbox-material'
+
 " Plug 'ciaranm/securemodelines'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'justinmk/vim-sneak'
@@ -55,12 +59,34 @@ Plug 'plasticboy/vim-markdown'
 
 call plug#end()
 
-" added with rust langauge plugin, might be unnecessary
-syntax on
-filetype plugin indent on
+"--------------------------------------------------------
+"                     THEME (gruvbox)
+"--------------------------------------------------------
+
+if has('termguicolors')
+	set termguicolors
+endif
+
+" For dark version.
+set background=dark
+
+" For light version.
+" set background=light
+
+" Set contrast.
+" This configuration option should be placed before `colorscheme gruvbox-material`.
+" Available values: 'hard', 'medium'(default), 'soft'
+" let g:gruvbox_material_background = 'soft'
+
+colorscheme gruvbox-material
+let g:airline_theme = 'gruvbox_material'
+
 "--------------------------------------------------------
 "                     LSP
 "--------------------------------------------------------
+" added with rust langauge plugin, might be unnecessary
+syntax on
+filetype plugin indent on
 
 " LSP configuration
 lua << END
