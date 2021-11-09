@@ -40,11 +40,18 @@ Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'nvim-lua/completion-nvim'
 
 " Autocomplete.. 
-Plug 'ms-jpq/coq_nvim'
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+
+Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
+
+Plug 'lervag/vimtex'
+
 
 " Syntactic language support..
 Plug 'rust-lang/rust.vim'
 Plug 'rhysd/vim-clang-format'
+Plug 'vim-syntastic/syntastic'
 
 " Vim rooter sets the current root directory to the project root
 " automatically. Rules are defined below. 
@@ -80,6 +87,26 @@ set background=dark
 
 colorscheme gruvbox-material
 let g:airline_theme = 'gruvbox_material'
+
+"--------------------------------------------------------
+"                     Syntastic
+"--------------------------------------------------------
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" see :h syntastic-loclist-callback
+function! SyntasticCheckHook(errors)
+    if !empty(a:errors)
+        let g:syntastic_loc_list_height = min([len(a:errors), 5])
+    endif
+endfunction
 
 "--------------------------------------------------------
 "                     LSP
