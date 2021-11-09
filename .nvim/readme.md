@@ -13,3 +13,4 @@ Plugin installation is triggered by :PlugInstall.
 - COQ: https://github.com/ms-jpq/coq_nvim (extra installation required, see GitHub page)
 - Rust: This one is pretty easy to find.
 - clang and clangd.
+- LateX environment and latex language server.

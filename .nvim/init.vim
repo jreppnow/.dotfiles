@@ -42,8 +42,8 @@ Plug 'nvim-lua/completion-nvim'
 " Autocomplete.. 
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
-
 Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
+
 
 Plug 'lervag/vimtex'
 
@@ -51,7 +51,7 @@ Plug 'lervag/vimtex'
 " Syntactic language support..
 Plug 'rust-lang/rust.vim'
 Plug 'rhysd/vim-clang-format'
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
 
 " Vim rooter sets the current root directory to the project root
 " automatically. Rules are defined below. 
@@ -65,6 +65,8 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
 call plug#end()
+
+" let g:tex_conceal = 
 
 "--------------------------------------------------------
 "                     THEME (gruvbox)
@@ -92,21 +94,21 @@ let g:airline_theme = 'gruvbox_material'
 "                     Syntastic
 "--------------------------------------------------------
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
 " see :h syntastic-loclist-callback
-function! SyntasticCheckHook(errors)
-    if !empty(a:errors)
-        let g:syntastic_loc_list_height = min([len(a:errors), 5])
-    endif
-endfunction
+" function! SyntasticCheckHook(errors)
+"    if !empty(a:errors)
+"        let g:syntastic_loc_list_height = min([len(a:errors), 5])
+"    endif
+" endfunction
 
 "--------------------------------------------------------
 "                     LSP
@@ -150,7 +152,7 @@ end
 
 local coq = require "coq"
 
-local servers = { "rust_analyzer", "clangd" }
+local servers = { "rust_analyzer", "clangd", "texlab" }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup(coq.lsp_ensure_capabilities(
    {
@@ -186,7 +188,7 @@ set updatetime=200
 " Avoid showing extra messages when using completion
 set shortmess+=c
 
-autocmd FileType c,cpp,rust :COQnow
+autocmd FileType c,cpp,rust,tex :COQnow
 
 " Setup for nerdtree to open automatically and restore focus.
 " autocmd VimEnter * NERDTree | wincmd p
@@ -286,7 +288,7 @@ set mouse=a
 "                     INDENTLINE
 "--------------------------------------------------------
 
-" let g:indentLine_setColors = 0
+let g:indentLine_conceallevel= 0
 
 "--------------------------------------------------------
 "                     SHORTCUTS
