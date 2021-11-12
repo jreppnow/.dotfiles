@@ -1,0 +1,3 @@
+set nvim as your default editor for git: 
+
+$ git config --global core.editor nvim
