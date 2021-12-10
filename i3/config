@@ -2,8 +2,8 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 # display config, only for desktop!
-exec xrandr --output DisplayPort-1 --rate 143.91 &
-exec xrandr --output HDMI-A-0 --auto --left-of DisplayPort-1
+# exec xrandr --output DisplayPort-1 --rate 143.91 &
+# exec xrandr --output HDMI-A-0 --auto --left-of DisplayPort-1
 
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
