@@ -7,4 +7,4 @@ set CMAKE_EXPORT_COMPILE_COMMANDS TRUE
 # see https://github.com/ivakyb/fish_ssh_agent
 fish_ssh_agent
 
-set -x PATH $PATH ~/.cargo/bin/ /snap/bin/
+set -x PATH ~/.bin/ $PATH ~/.cargo/bin/ /snap/bin/ 
