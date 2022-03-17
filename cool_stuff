@@ -1,3 +1,5 @@
 set nvim as your default editor for git: 
 
 $ git config --global core.editor nvim
+
+install newer nvim from the repository, place it in /home/user/.bin!
