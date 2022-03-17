@@ -23,6 +23,7 @@ Plug 'kana/vim-operator-user'
 " gruvbox color scheme
 Plug 'sheerun/vim-polyglot'
 Plug 'sainnhe/gruvbox-material'
+Plug 'NLKNguyen/papercolor-theme'
 
 " Plug 'ciaranm/securemodelines'
 Plug 'editorconfig/editorconfig-vim'
@@ -59,6 +60,7 @@ Plug 'lervag/vimtex'
 Plug 'rust-lang/rust.vim'
 Plug 'rhysd/vim-clang-format'
 " Plug 'vim-syntastic/syntastic'
+Plug 'simrat39/rust-tools.nvim'
 
 " Vim rooter sets the current root directory to the project root
 " automatically. Rules are defined below. 
@@ -69,11 +71,20 @@ Plug 'Yggdroot/indentLine'
 
 " Former is needed for the later..
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'romgrk/nvim-treesitter-context'
 Plug 'SmiteshP/nvim-gps'
+
+" Typescript
+Plug 'nvim-lua/plenary.nvim'
+" Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+
+" post install (yarn install | npm install) then load plugin only for editing supported files
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install --frozen-lockfile --production',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 
 call plug#end()
 
@@ -98,8 +109,8 @@ set background=dark
 " Available values: 'hard', 'medium'(default), 'soft'
 " let g:gruvbox_material_background = 'soft'
 
-colorscheme gruvbox-material
-let g:airline_theme = 'gruvbox_material'
+colorscheme PaperColor
+let g:airline_theme = 'papercolor'
 
 "--------------------------------------------------------
 "                     Syntastic
@@ -125,6 +136,7 @@ let g:airline_theme = 'gruvbox_material'
 "                     LSP
 "--------------------------------------------------------
 " added with rust langauge plugin, might be unnecessary
+
 syntax on
 filetype plugin indent on
 
@@ -156,6 +168,11 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap("n", "<leader>f", "<cmd>lua vim.buf.formatting()<CR>", opts)
+  if client.resolved_capabilities.document_formatting then
+    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+  end
+
+
 
   -- Forward to other plugins
   require'completion'.on_attach(client)
@@ -163,7 +180,7 @@ end
 
 local coq = require "coq"
 
-local servers = { "rls", "rust_analyzer", "clangd", "texlab" }
+local servers = {"clangd", "eslint", "texlab", "pylsp" }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup(coq.lsp_ensure_capabilities(
    {
@@ -173,6 +190,43 @@ for _, lsp in ipairs(servers) do
     }
   }
 ))
+
+local opts = {
+    tools = { -- rust-tools options
+        autoSetHints = true,
+        hover_with_actions = true,
+        inlay_hints = {
+            show_parameter_hints = true,
+            parameter_hints_prefix = "",
+            other_hints_prefix = "",
+        },
+    },
+
+    -- all the opts to send to nvim-lspconfig
+    -- these override the defaults set by rust-tools.nvim
+    -- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
+    server = coq.lsp_ensure_capabilities({
+        -- on_attach is a callback called when the language server attachs to the buffer
+        -- on_attach = function(client, buffer)
+	-- 	require('rust-tools.inlay_hints').set_inlay_hints()
+	-- 	on_attach(client, buffer)
+	-- end
+	on_attach = on_attach,
+        settings = {
+            -- to enable rust-analyzer settings visit:
+            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+            ["rust-analyzer"] = {
+                -- enable clippy on save
+                checkOnSave = {
+                    command = "clippy"
+                },
+            }
+        }
+    }),
+}
+
+
+require('rust-tools').setup(opts)
 end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -180,10 +234,40 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     virtual_text = true,
     signs = true,
     update_in_insert = true,
+    loclist = true,
   }
 )
+
+-- typescript stuff
+lspconfig.tsserver.setup(coq.lsp_ensure_capabilities({
+    on_attach = function(client, bufnr)
+        client.resolved_capabilities.document_formatting = false
+        client.resolved_capabilities.document_range_formatting = false        
+	local ts_utils = require("nvim-lsp-ts-utils")
+        ts_utils.setup({})
+        ts_utils.setup_client(client)        
+	-- buf_map(bufnr, "n", "gs", ":TSLspOrganize<CR>")
+        -- buf_map(bufnr, "n", "gi", ":TSLspRenameFile<CR>")
+        -- buf_map(bufnr, "n", "go", ":TSLspImportAll<CR>")        
+	on_attach(client, bufnr)
+    end,
+}))
+
+-- local null_ls = require("null-ls")
+
+-- null_ls.setup({
+--    sources = {
+--        null_ls.builtins.diagnostics.eslint,
+--        null_ls.builtins.code_actions.eslint,
+--        null_ls.builtins.formatting.prettier,
+--    },
+--    on_attach = on_attach,
+-- })
+
 END
 
+let g:prettier#autoformat_config_present = 1
+let g:prettier#config#config_precedence = 'prefer-file'
 "--------------------------------------------------------
 "                     TREE-SITTER
 "--------------------------------------------------------
@@ -251,7 +335,7 @@ set updatetime=200
 " Avoid showing extra messages when using completion
 set shortmess+=c
 
-autocmd FileType c,cpp,rust,tex :COQnow
+autocmd FileType c,cpp,rust,tex,python,typescript,javascript :COQnow
 
 " Setup for nerdtree to open automatically and restore focus.
 " autocmd VimEnter * NERDTree | wincmd p
