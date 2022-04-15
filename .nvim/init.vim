@@ -86,6 +86,8 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install --frozen-lockfile --production',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
 
+Plug 'norcalli/nvim-colorizer.lua'
+
 call plug#end()
 
 " let g:tex_conceal = 
