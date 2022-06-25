@@ -125,6 +125,9 @@ map <leader>sf <Action>(GotoFile)
 map <leader>sc <Action>(GotoClass)
 map <leader>su <Action>(FindUsages)
 
+map <leader>qd <Action>(QuickImplementations)
+map <leader>qq <Action>(QuickJavaDoc)
+
 " No arrow keys --- force yourself to use the home row
 nnoremap <up> <nop>
 nnoremap <down> <nop>
