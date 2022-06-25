@@ -1,0 +1,154 @@
+set shell=/bin/bash
+nnoremap <space> <nop>
+
+let mapleader = "\<space>"
+set showcmd
+
+" basic settings
+set relativenumber
+set nocompatible
+
+" https://github.com/JetBrains/ideavim/wiki/Emulated-plugins
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'tommcdo/vim-exchange'
+Plug 'machakann/vim-highlightedyank'
+Plug 'easymotion/vim-easymotion'
+Plug 'kana/vim-textobj-entire'
+Plug 'michaeljsmith/vim-indent-object'
+
+" Permanent undo
+set undodir=~/.vimdid
+set undofile
+
+" Wrapping options
+set formatoptions=tc " wrap text and comments using textwidth
+set formatoptions+=r " continue comments when pressing ENTER in I mode
+set formatoptions+=q " enable formatting of comments with gq
+set formatoptions+=n " detect lists for formatting
+set formatoptions+=b " auto-wrap in insert mode, and do not wrap old long lines
+
+" Proper search
+set incsearch
+set ignorecase
+set smartcase
+set gdefault
+
+" Search results centered please
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+
+" Very magic by default
+nnoremap ? ?\v
+nnoremap / /\v
+cnoremap %s/ %sm/
+
+set mouse=a
+
+set ideajoin
+set ideastatusicon=gray
+set idearefactormode=keep
+set scrolloff=5
+"--------------------------------------------------------
+"                     SHORTCUTS
+"--------------------------------------------------------
+nnoremap ; :
+
+" Ctrl+j and Ctrl+k as Esc
+" Ctrl-j is a little awkward unfortunately:
+" https://github.com/neovim/neovim/issues/5916
+" So we also map Ctrl+k
+nnoremap <C-j> <Esc>
+inoremap <C-j> <Esc>
+vnoremap <C-j> <Esc>
+snoremap <C-j> <Esc>
+xnoremap <C-j> <Esc>
+cnoremap <C-j> <C-c>
+onoremap <C-j> <Esc>
+lnoremap <C-j> <Esc>
+tnoremap <C-j> <Esc>
+
+nnoremap <C-k> <Esc>
+inoremap <C-k> <Esc>
+vnoremap <C-k> <Esc>
+snoremap <C-k> <Esc>
+xnoremap <C-k> <Esc>
+cnoremap <C-k> <C-c>
+onoremap <C-k> <Esc>
+lnoremap <C-k> <Esc>
+tnoremap <C-k> <Esc>
+
+" Ctrl+h to stop searching
+vnoremap <leader>h :nohlsearch<cr>
+nnoremap <leader>h :nohlsearch<cr>
+
+" Suspend with Ctrl+f
+inoremap <C-f> :sus<cr>
+vnoremap <C-f> :sus<cr>
+nnoremap <C-f> :sus<cr>
+
+" Jump to start and end of line using the home row keys
+map H ^
+map L $
+
+" Neat X clipboard integration
+" ,p will paste clipboard into buffer
+" ,c will copy entire buffer into clipboard
+set clipboard+=unnamed
+" noremap <leader>p <Action>(P)
+" noremap <leader>c <Action>(C)
+
+map <leader>ed <Action>(ChooseDebugConfiguration)
+map <leader>er <Action>(ChooseRunConfiguration)
+map <leader>eb <Action>(ToggleLineBreakpoint)
+
+map <leader>rr <Action>(RenameElement)
+map <leader>rs <Action>(ChangeSignature)
+map <leader>rt <Action>(Refactorings.QuickListPopupAction)
+map <leader>rg <Action>(Generate)
+map <leader>ra <Action>(ShowIntentionActions)
+
+map <leader>[ <Action>(GotoPrevious)
+map <leader>] <Action>(GotoNextError)
+
+map <leader>o <Action>(FileStructurePopup)
+
+map <leader>gd <Action>(GotoDeclaration)
+map <leader>gD <Action>(GotoImplementation)
+
+map <leader>se <Action>(SearchEverywhere)
+map <leader>sf <Action>(GotoFile)
+map <leader>sc <Action>(GotoClass)
+map <leader>su <Action>(FindUsages)
+
+" No arrow keys --- force yourself to use the home row
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" Left and right can switch buffers
+nnoremap <left> :bp<CR>
+nnoremap <right> :bn<CR>
+
+" Move by line
+nnoremap j gj
+nnoremap k gk
+
+" nnoremap <leader> <c-^>
+
+" <leader>, shows/hides hidden characters
+nnoremap <leader>, :set invlist<cr>
+
+" Keymap for replacing up to next _ or -
+noremap <leader>m ct_
+
+" I can type :help on my own, thanks.
+map <F1> <Esc>
+imap <F1> <Esc>
