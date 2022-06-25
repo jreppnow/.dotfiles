@@ -128,6 +128,8 @@ map <leader>su <Action>(FindUsages)
 map <leader>qd <Action>(QuickImplementations)
 map <leader>qq <Action>(QuickJavaDoc)
 
+nnoremap <leader>b :edit #<cr> 
+
 " No arrow keys --- force yourself to use the home row
 nnoremap <up> <nop>
 nnoremap <down> <nop>
