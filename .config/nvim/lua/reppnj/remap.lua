@@ -1,4 +1,7 @@
 vim.g.mapleader = " "
+
+vim.keymap.set("n", ";", ":")
+
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- move stuff in visual mode
@@ -31,3 +34,6 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 vim.keymap.set("n", "<leader><leader>", [[:edit #<CR>]])
+
+vim.keymap.set("n", "H", "^")
+vim.keymap.set("n", "L", "$")
