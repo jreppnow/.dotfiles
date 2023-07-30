@@ -4,6 +4,8 @@
 # display config, only for desktop!
 exec xrandr --output DisplayPort-1 --rate 143.91 &
 exec xrandr --output HDMI-A-1 --auto --left-of DisplayPort-1
+exec_always picom
+exec nitrogen --restore
 
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
