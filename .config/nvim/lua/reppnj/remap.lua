@@ -18,6 +18,7 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
+vim.keymap.set("n", "<leader>P", [["+p]])
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 vim.keymap.set("i", "<C-c>", "<Esc>")
@@ -37,3 +38,16 @@ vim.keymap.set("n", "<leader><leader>", [[:edit #<CR>]])
 
 vim.keymap.set("n", "H", "^")
 vim.keymap.set("n", "L", "$")
+
+for _, v in ipairs {
+    { open = "\"", close = "\"" },
+    { open = "'",  close = "'" },
+    { open = "{",  close = "}" },
+    { open = "(",  close = ")" },
+    { open = "[",  close = "]" },
+} do
+    vim.keymap.set("i", v.open, v.open .. v.close .. "<esc>i")
+    vim.keymap.set("i", "<S-" .. v.open .. ">", function()
+        print("Shortcut used!!!!")
+    end)
+end
