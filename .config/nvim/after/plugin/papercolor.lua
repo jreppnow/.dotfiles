@@ -1,8 +1,8 @@
-function color_my_stuff()
+function ColorMyStuff()
     vim.opt.background = 'dark'
-    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "DarkGray", bold = true })
     vim.cmd.colorscheme('PaperColor')
-    vim.api.nvim_set_hl(0, "Normal", { bg = "Black" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = nil, bold = true })
+    vim.api.nvim_set_hl(0, "Normal", { bg = nil })
 end
 
-color_my_stuff()
+ColorMyStuff()
