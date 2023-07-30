@@ -8,3 +8,4 @@ set CMAKE_EXPORT_COMPILE_COMMANDS TRUE
 fish_ssh_agent
 
 set -x PATH ~/.bin/ $PATH ~/.cargo/bin/ /snap/bin/ 
+fish_add_path /usr/local/go/bin
