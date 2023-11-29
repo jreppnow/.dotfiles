@@ -1,1 +1,1 @@
-require('nvim-rooter').setup({ manual = true, trigger_patterns = { '.git', 'Cargo.toml' } })
+require('nvim-rooter').setup({ manual = false, rooter_patterns = { '.git', '.svn' } })
