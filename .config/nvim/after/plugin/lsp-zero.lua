@@ -84,6 +84,30 @@ lsp.nvim_lua_ls()
 
 lsp.setup()
 
+require('mason-lspconfig').setup({
+    handlers = {
+        lsp.default_setup,
+        rust_analyzer = function()
+            require('lspconfig').rust_analyzer.setup({
+                settings = {
+                    ["rust-analyzer"] = {
+                        procMacro = {
+                            enable = true,
+                        },
+                        checkOnSave = {
+                            command = "clippy"
+                        }
+                    }
+                },
+                on_attach = function(n, bufnr)
+                    print("Enabling custom functions for Rust!")
+                    set_keybinds(n, bufnr)
+                end
+            })
+        end,
+    }
+})
+
 vim.diagnostic.config({
     virtual_text = true
 })
