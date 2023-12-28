@@ -50,6 +50,12 @@ return require('packer').startup(function(use)
     use 'notjedi/nvim-rooter.lua'
     use 'tpope/vim-surround'
 
+    use {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        requires = { { "nvim-lua/plenary.nvim" } }
+    }
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if packer_bootstrap then
